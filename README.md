@@ -1,6 +1,10 @@
 # Personalized-Medicine-Recommending-System
 Personalized Medicine Recommending System 
 
+![alt text](image.png)
+![alt text](image-1.png)
+![alt text](image-2.png)
+
 A Personalized Medicine Recommendation System in machine learning (ML) is a software application designed to assist healthcare professionals and patients in selecting the most appropriate medication based on various factors such as medical history, symptoms, demographics, and drug interactions. Here's a breakdown of its components and functionality:
 
 Data Collection and Preprocessing: The system collects and preprocesses vast amounts of medical data, including patient records, electronic health records (EHRs), clinical trials data, drug information, and research articles. This data is cleaned, standardized, and structured for analysis.
