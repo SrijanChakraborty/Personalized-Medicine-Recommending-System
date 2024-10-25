@@ -34,7 +34,7 @@ else:
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html', symptoms_dict=symptoms_dict)
 
 
 def helper(dis):
@@ -69,21 +69,26 @@ def get_predicted_value(patient_symptoms):
     return diseases_list[svc.predict([input_vector])[0]]
 
 
+def to_camel_case(s):
+    return ''.join(word.capitalize() for word in s.split('_'))
+
 @app.route('/predict', methods=['GET', 'POST'])
 def home():
+
     if request.method == 'POST':
         symptoms = request.form.get('symptoms')
         print("symptoms" + symptoms)
+
         if not symptoms:
+
          return render_template('index.html', message="Please enter symptoms to proceed.")
 
-        if symptoms == "Symptoms":
-            message = "Please either write symptoms or you have written misspelled symptoms"
-            return render_template('index.html', message=message)
         else:
             user_symptoms = [s.strip() for s in symptoms.split(',')]
             user_symptoms = [symptom.strip("[]' ")
                              for symptom in user_symptoms]
+            selected_symptoms = [to_camel_case(
+                symptom) for symptom in user_symptoms]
             predicted_disease = get_predicted_value(user_symptoms)
             dis_des, precautions, medications, rec_diet, workout = helper(
                 predicted_disease)
@@ -108,9 +113,9 @@ def home():
 
             return render_template('index.html', predicted_disease=predicted_disease, dis_des=dis_des,
                                    my_precautions=my_precautions, medications=my_medications, my_diet=my_rec_diet,
-                                   workout=workout)
+                                   workout=workout,  symptoms_dict=symptoms_dict, selected_symptoms=selected_symptoms,)
 
-    return render_template('index.html')
+    return render_template('index.html', symptoms_dict=symptoms_dict)
 
 
 
